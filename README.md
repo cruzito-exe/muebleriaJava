@@ -19,16 +19,14 @@ Este proyecto es un sistema de ventas básico desarrollado en Java utilizando Ne
 ```java
 public class ConexionBD {
  static Statement statement;
- static ResultSet resultset;
- static PreparedStatement preparedStatement;
  static Connection connection = null;
  
- public static Connection conexionBD() throws ClassNotFoundException, SQLException {
+ public static Connection conexionBD() {
   try {
    Class.forName("com.mysql.jdbc.Driver");
-   connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/systemTest", user, password);
+   connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/systemTest", "root", "");
    statement = connection.createStatement();
-  } catch (SQLException ex) {
+  } catch (ClassNotFoundException | SQLException ex) {
    System.out.println("Error al conectar con la base de datos, error: "+ex.getMessage());
   }
      
