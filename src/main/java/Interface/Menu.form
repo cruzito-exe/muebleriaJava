@@ -2523,33 +2523,39 @@
                                       <Component id="jLabel54" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel56" alignment="0" min="-2" pref="710" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lbl_clients" pref="0" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
-                                      </Group>
                                       <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel58" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lbl_employees" alignment="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane10" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lbl_inventory" alignment="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane9" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lbl_loginData" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lbl_login" alignment="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane7" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lbl_sales" alignment="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane8" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="lbl_inventory" alignment="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane9" alignment="0" pref="685" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="lbl_loginData" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lbl_login" alignment="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane7" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lbl_sales" alignment="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane8" alignment="0" pref="685" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="jScrollPane10" alignment="0" pref="685" max="32767" attributes="0"/>
+                                          <Component id="lbl_employees" alignment="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jScrollPane11" alignment="0" pref="0" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel59" alignment="0" min="-2" pref="497" max="-2" attributes="0"/>
-                                          <Component id="jLabel49" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
-                                          <Component id="lbl_menu" alignment="0" min="-2" pref="680" max="-2" attributes="0"/>
+                                      <Component id="lbl_clients" alignment="0" pref="685" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel59" alignment="0" min="-2" pref="497" max="-2" attributes="0"/>
+                                              <Component id="jLabel49" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="jScrollPane11" alignment="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="lbl_menu" alignment="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
