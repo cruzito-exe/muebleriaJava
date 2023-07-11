@@ -1,4 +1,4 @@
-# Sistema de Ventas
+# 🛍️ Sistema de Ventas
 
 ![photo7](https://github.com/cruzito-exe/muebleriaJava/assets/54298536/4f80d829-334b-4986-8eaa-9dc7e23f2d6e)
 
