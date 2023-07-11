@@ -49,7 +49,7 @@ El proyecto sigue una estructura básica de paquetes:
 - `Database`: Contiene el script SQL de la base de datos.
 - `Classes`: Contiene las clases que representan los objetos del dominio del negocio, como `Inventory` y `Sales`.
 - `Interface`: Contiene las clases que implementan la interfaz de usuario del sistema.
-- `Reports`: Contiene las clases que implementan la interfaz de usuario del sistema.
+- `Reports`: Contiene los manejadores de reportería que se implementan en el sistema.
 - `Icons`: Contiene las imágenes/iconos que se implementan tanto en el menú prinicipal como en `buscar` y `reporte` de cada formulario.
 - `Screenshots`: Contiene las capturas de pantalla mostradas en el Help Center.
 
