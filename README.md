@@ -12,7 +12,7 @@ Este proyecto es un sistema de ventas básico desarrollado en Java utilizando Ne
 2. Abre Netbeans y selecciona "Abrir Proyecto".
 3. Navega hasta la ubicación donde clonaste o descargaste el repositorio y selecciona el proyecto.
 4. Asegúrate de que XAMPP esté instalado y ejecutando.
-5. Abre phpMyAdmin en tu navegador y crea una nueva base de datos llamada "el_serrucho".
+5. Abre phpMyAdmin en tu navegador y crea una nueva base de datos llamada "systemTest".
 6. Importa el archivo SQL proporcionado en la carpeta `database` en la base de datos recién creada.
 7. Actualiza la configuración de conexión a la base de datos en el archivo `Config/ConexionBD.java` con los detalles correctos de tu entorno de MySQL.
 
