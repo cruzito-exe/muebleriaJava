@@ -1,6 +1,8 @@
-# Sistema de Ventas para Mueblería "El Serrucho"
+# Sistema de Ventas
 
-Este proyecto es un sistema de ventas básico desarrollado en Java utilizando Netbeans 12.0 como entorno de desarrollo integrado (IDE) y MySQL como sistema de gestión de bases de datos (SGBD) utilizando XAMPP.
+![photo7](https://github.com/cruzito-exe/muebleriaJava/assets/54298536/4f80d829-334b-4986-8eaa-9dc7e23f2d6e)
+
+Este proyecto es un sistema de ventas básico desarrollado en Java Maven utilizando Netbeans 12.0 como entorno de desarrollo integrado (IDE) y MySQL como sistema de gestión de bases de datos (SGBD) utilizando XAMPP.
 
 ## Requisitos previos
 - Netbeans 12.0 o superior instalado en el equipo.
