@@ -12,8 +12,8 @@ Este proyecto es un sistema de ventas básico desarrollado en Java utilizando Ne
 2. Abre Netbeans y selecciona "Abrir Proyecto".
 3. Navega hasta la ubicación donde clonaste o descargaste el repositorio y selecciona el proyecto.
 4. Asegúrate de que XAMPP esté instalado y ejecutando.
-5. Abre phpMyAdmin en tu navegador y crea una nueva base de datos llamada "systemTest".
-6. Importa el archivo SQL proporcionado en la carpeta `database` en la base de datos recién creada.
+5. Abre phpMyAdmin en tu navegador y crea una nueva base de datos llamada `systemTest`.
+6. Importa el archivo SQL proporcionado en el paquete `Database` en la base de datos recién creada.
 7. Actualiza la configuración de conexión a la base de datos en el archivo `Config/ConexionBD.java` con los detalles correctos de tu entorno de MySQL.
 
 ```java
@@ -37,8 +37,8 @@ public class ConexionBD {
 
 ## Ejecución del proyecto
 
-1. Después de configurar la conexión a la base de datos, puedes ejecutar el proyecto en Netbeans seleccionando la opción "Run" o presionando la tecla F6.
-2. El sistema de ventas para Mueblería "El Serrucho" se abrirá en una ventana.
+1. Después de configurar la conexión a la base de datos, puedes ejecutar el proyecto en Netbeans seleccionando la opción "Run" o presionando la combinación de teclas `Shift + F6` en `Login.java`.
+2. El sistema se abrirá en una ventana.
 3. Puedes navegar por las diferentes opciones del sistema, como agregar productos, realizar ventas, ver informes, etc.
 
 ## Estructura del proyecto
@@ -46,8 +46,12 @@ public class ConexionBD {
 El proyecto sigue una estructura básica de paquetes:
 
 - `Config`: Contiene la configuración de la conexión a la base de datos.
+- `Database`: Contiene el script SQL de la base de datos.
 - `Classes`: Contiene las clases que representan los objetos del dominio del negocio, como `Inventory` y `Sales`.
 - `Interface`: Contiene las clases que implementan la interfaz de usuario del sistema.
+- `Reports`: Contiene las clases que implementan la interfaz de usuario del sistema.
+- `Icons`: Contiene las imágenes/iconos que se implementan tanto en el menú prinicipal como en `buscar` y `reporte` de cada formulario.
+- `Screenshots`: Contiene las capturas de pantalla mostradas en el Help Center.
 
 ## Contribución
 
@@ -67,4 +71,4 @@ Este proyecto se encuentra bajo la licencia [MIT](LICENSE).
 
 Si tienes alguna pregunta o sugerencia sobre el proyecto, no dudes en contactarme a través del correo electrónico [dcruzer92@gmail.com](mailto:dcruzer92@gmail.com).
 
-Esperamos que este sistema de ventas para Mueblería "El Serrucho" sea útil para tu aprendizaje. ¡Gracias por usar mi software!
+Espero que este sistema de ventas para Mueblería "El Serrucho" sea útil para tu aprendizaje. ¡Gracias por usar mi software!
