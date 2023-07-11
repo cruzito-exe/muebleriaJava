@@ -26,12 +26,12 @@ public class ConexionBD {
  static PreparedStatement preparedStatement;
  static Connection connection = null;
  
- public static Connection conexionBD() throws ClassNotFoundException, SQLException {
+ public static Connection conexionBD() {
   try {
    Class.forName("com.mysql.jdbc.Driver");
    connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/systemTest", "root", "");
    statement = connection.createStatement();
-  } catch (SQLException ex) {
+  } catch (ClassNotFoundException | SQLException ex) {
    System.out.println("Error al conectar con la base de datos, error: "+ex.getMessage());
   }
      
@@ -84,7 +84,7 @@ public class ConexionBD {
    jasperViewer = new JasperViewer(jasperPrint, false);
    jasperViewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
    jasperViewer.setVisible(true);
-  } catch(ClassNotFoundException | SQLException | JRException ex) {
+  } catch(JRException ex) {
    JOptionPane.showMessageDialog(null, "Error al cargar reporte de clientes", "Error", JOptionPane.ERROR_MESSAGE);
    System.out.println("Error al cargar reporte de clientes, error: "+ex.getMessage());
   }
@@ -140,7 +140,7 @@ public class ConexionBD {
    jasperViewer = new JasperViewer(jasperPrint, false);
    jasperViewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
    jasperViewer.setVisible(true);
-  } catch(ClassNotFoundException | SQLException | JRException ex) {
+  } catch(JRException ex) {
    JOptionPane.showMessageDialog(null, "Error al cargar reporte de empleados", "Error", JOptionPane.ERROR_MESSAGE);
    System.out.println("Error al cargar reporte de empleados, error: "+ex.getMessage());
   }
@@ -199,7 +199,7 @@ public class ConexionBD {
    jasperViewer = new JasperViewer(jasperPrint, false);
    jasperViewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
    jasperViewer.setVisible(true);
-  } catch(ClassNotFoundException | SQLException | JRException ex) {
+  } catch(JRException ex) {
    JOptionPane.showMessageDialog(null, "Error al cargar reporte de inventario", "Error", JOptionPane.ERROR_MESSAGE);
    System.out.println("Error al cargar reporte de empleados, error: "+ex.getMessage());
   }
@@ -244,7 +244,7 @@ public class ConexionBD {
    jasperViewer = new JasperViewer(jasperPrint, false);
    jasperViewer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
    jasperViewer.setVisible(true);
-  } catch(ClassNotFoundException | SQLException | JRException ex) {
+  } catch(JRException ex) {
    JOptionPane.showMessageDialog(null, "Error al cargar reporte de ventas", "Error", JOptionPane.ERROR_MESSAGE);
    System.out.println("Error al cargar reporte de empleados, error: "+ex.getMessage());
   }
