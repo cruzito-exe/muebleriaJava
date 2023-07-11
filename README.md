@@ -24,7 +24,7 @@ public class ConexionBD {
  public static Connection conexionBD() {
   try {
    Class.forName("com.mysql.jdbc.Driver");
-   connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/systemTest", "root", "");
+   connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/systemTest", user, password);
    statement = connection.createStatement();
   } catch (ClassNotFoundException | SQLException ex) {
    System.out.println("Error al conectar con la base de datos, error: "+ex.getMessage());
