@@ -213,28 +213,27 @@ public class Login extends javax.swing.JFrame {
   return null;
 }
  
- private void setAdminInterface() {
-  role = "Rol: Administrador";
-  menu.setImageLabel(menu.lbl_logo, "/Icons/admin.png");
-  menu.setImageLabel(menu.lbl_menu, "/Screenshots/1.png");
-  menu.setImageLabel(menu.lbl_clients, "/Screenshots/2.png");
-  menu.setImageLabel(menu.lbl_employees, "/Screenshots/3.png");
-  menu.setImageLabel(menu.lbl_inventory, "/Screenshots/4.png");
-  menu.setImageLabel(menu.lbl_sales, "/Screenshots/5.png");
- }
- 
- private void setUserInterface() {
-  role = "Rol: Empleado";
-  menu.setImageLabel(menu.lbl_logo, "/Icons/user.png");
-  menu.setImageLabel(menu.lbl_menu, "/Screenshots/6.png");
-  menu.setImageLabel(menu.lbl_clients, "/Screenshots/7.png");
-  menu.setImageLabel(menu.lbl_employees, "/Screenshots/7.png");
-  menu.pnl_employeesData.setText("You don't have permissions to see this information");
-  menu.setImageLabel(menu.lbl_inventory, "/Screenshots/8.png");
-  menu.setImageLabel(menu.lbl_sales, "/Screenshots/9.png");
-  menu.btn_empleados.setEnabled(false);
- }
-    
+private void setAdminInterface() {
+ setInterface("Rol: Administrador", "/Icons/admin.png", "/Screenshots/1.png", "/Screenshots/2.png", "/Screenshots/3.png", "/Screenshots/4.png", "/Screenshots/5.png", "/Screenshots/10.png", "/Icons/principal.png", true);
+}
+
+private void setUserInterface() {
+ setInterface("Rol: Empleado", "/Icons/user.png", "/Screenshots/6.png", "/Screenshots/7.png", "/Screenshots/7.png", "/Screenshots/8.png", "/Screenshots/9.png", "/Screenshots/10.png", "/Icons/principal.png", false);
+}
+
+private void setInterface(String role, String logoImagePath, String menuImagePath, String clientsImagePath, String employeesImagePath, String inventoryImagePath, String salesImagePath, String loginImagePath, String principalImagePath, boolean enableEmployees) {
+ this.role = role;
+ menu.setImageLabel(menu.lbl_logo, logoImagePath);
+ menu.setImageLabel(menu.lbl_menu, menuImagePath);
+ menu.setImageLabel(menu.lbl_clients, clientsImagePath);
+ menu.setImageLabel(menu.lbl_employees, employeesImagePath);
+ menu.setImageLabel(menu.lbl_inventory, inventoryImagePath);
+ menu.setImageLabel(menu.lbl_sales, salesImagePath);
+ menu.setImageLabel(menu.lbl_login, loginImagePath);
+ menu.setImageLabel(menu.lbl_principal, principalImagePath);
+ menu.btn_empleados.setEnabled(enableEmployees);
+}
+
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
      String username = txtUsername.getText();
      String password = txtPassword.getText();
