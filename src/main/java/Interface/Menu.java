@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -153,6 +154,8 @@ public void showClients() {
   tbl_clients.setModel(defaultTableModel);
  } catch(SQLException ex) {
   System.out.println("Error al mostrar datos de cliente, error: "+ex.getMessage());
+ } finally {
+  ConexionBD.closeResources(null, statement, resultSet);
  }
 }
 
@@ -169,17 +172,22 @@ public Clients setClients() {
 private void deleteClients() {
  try {
   int selectedRow = tbl_clients.getSelectedRow();
-  String deleteClient = "delete from clientes where idCliente = "+tbl_clients.getValueAt(selectedRow, 0);
-  statement = connection.createStatement();
+  int clientId = (int) tbl_clients.getValueAt(selectedRow, 0);
+  String deleteClient = "delete from clientes where idCliente = ?";
   
-  int delete = statement.executeUpdate(deleteClient);
-  
-  if(delete >= 0) {
-   JOptionPane.showMessageDialog(null, "Cliente eliminado del registro", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+  try (PreparedStatement preparedStatement = connection.prepareStatement(deleteClient)) {
+   preparedStatement.setInt(1, clientId);
+   int delete = preparedStatement.executeUpdate();
+   
+   if(delete >= 0) {
+    JOptionPane.showMessageDialog(null, "Cliente eliminado del registro", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+   }
   }
- } catch(SQLException ex) {
+ } catch (SQLException ex) {
   JOptionPane.showMessageDialog(null, "Error al eliminar cliente del registro", "Error", JOptionPane.ERROR_MESSAGE);
-  System.out.println("Error al eliminar cliente, error: "+ex.getMessage());
+  System.out.println("Error al eliminar cliente, error: " + ex.getMessage());
+ } finally {
+  ConexionBD.closeResources(connection, null, null);
  }
 }
 
@@ -202,18 +210,10 @@ private void searchClients() {
   }
   
   tbl_clients.setModel(defaultTableModel);
-  
-  int rowCount = tbl_clients.getRowCount();
-   if(rowCount > 0) {
-    String lastId = tbl_clients.getValueAt(rowCount - 1, 0).toString();
-    int newId = Integer.parseInt(lastId) + 1;
-    txtClientId.setText(String.valueOf(newId));
-   } else {
-    txtClientId.setText("");
-   }
-  
  } catch(SQLException ex) {
   System.out.println("Error al mostrar datos de cliente, error: "+ex.getMessage());
+ } finally {
+  ConexionBD.closeResources(null, statement, resultSet);
  }
 }
 
@@ -249,6 +249,8 @@ public void showEmployees() {
   tbl_employees.setModel(defaultTableModel);
  } catch(SQLException ex) {
   System.out.println("Error al mostrar datos de empleado, error: "+ex.getMessage());
+ } finally {
+  ConexionBD.closeResources(null, statement, resultSet);
  }
 }
 
@@ -275,17 +277,21 @@ public Employees setEmployees() {
 private void deleteEmployees() {
  try {
   int selectedRow = tbl_employees.getSelectedRow();
-  String deleteEmployee = "delete from empleados where idEmpleado = "+tbl_employees.getValueAt(selectedRow, 0);
-  statement = connection.createStatement();
+  int employeeId = (int) tbl_employees.getValueAt(selectedRow, 0);
+  String deleteEmployee = "delete from empleados where idEmpleado = ?";
   
-  int delete = statement.executeUpdate(deleteEmployee);
-  
-  if(delete >= 0) {
-   JOptionPane.showMessageDialog(null, "Empleado eliminado del registro", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+  try (PreparedStatement preparedStatement = connection.prepareStatement(deleteEmployee)) {
+   preparedStatement.setInt(1, employeeId);
+   int delete = preparedStatement.executeUpdate();
+   
+   if(delete >= 0) {
+    JOptionPane.showMessageDialog(null, "Empleado eliminado del registro", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+   }
   }
- } catch(SQLException ex) {
+  ConexionBD.closeResources(connection, null, null);
+ } catch (SQLException ex) {
   JOptionPane.showMessageDialog(null, "Error al eliminar empleado del registro", "Error", JOptionPane.ERROR_MESSAGE);
-  System.out.println("Error al eliminar empleado, error: "+ex.getMessage());
+  System.out.println("Error al eliminar empleado, error: " + ex.getMessage());
  }
 }
 
@@ -308,18 +314,10 @@ public void searchEmployees() {
   }
   
   tbl_employees.setModel(defaultTableModel);
-  
-  int rowCount = tbl_employees.getRowCount();
-   if(rowCount > 0) {
-    String lastId = tbl_employees.getValueAt(rowCount - 1, 0).toString();
-    int newId = Integer.parseInt(lastId) + 1;
-    txtEmployeeId.setText(String.valueOf(newId));
-   } else {
-    txtEmployeeId.setText("");
-   }
-  
  } catch(SQLException ex) {
   System.out.println("Error al mostrar datos de empleado, error: "+ex.getMessage());
+ } finally {
+  ConexionBD.closeResources(null, statement, resultSet);
  }
 }
 
@@ -369,6 +367,8 @@ public void showInventory() {
   tbl_products.getColumnModel().getColumn(0).setMaxWidth(0);
  } catch(SQLException ex) {
   System.out.println("Error al mostrar datos de inventario, error: "+ex.getMessage());
+ } finally {
+  ConexionBD.closeResources(null, statement, resultSet);
  }
 }
 
@@ -388,17 +388,21 @@ public Inventory setInventory() {
 private void deleteInventory() {
  try {
   int selectedRow = tbl_products.getSelectedRow();
-  String deleteEmployee = "delete from productos where codigoProducto = "+tbl_products.getValueAt(selectedRow, 0);
-  statement = connection.createStatement();
+  int productId = (int) tbl_products.getValueAt(selectedRow, 0);
+  String deleteInventory = "delete from productos where codigoProducto = ?";
   
-  int delete = statement.executeUpdate(deleteEmployee);
-  
-  if(delete >= 0) {
-   JOptionPane.showMessageDialog(null, "Producto eliminado del registro", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+  try (PreparedStatement preparedStatement = connection.prepareStatement(deleteInventory)) {
+   preparedStatement.setInt(1, productId);
+   int delete = preparedStatement.executeUpdate();
+   
+   if(delete >= 0) {
+    JOptionPane.showMessageDialog(null, "Producto eliminado del registro", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+   }
   }
- } catch(SQLException ex) {
+  ConexionBD.closeResources(connection, null, null);
+ } catch (SQLException ex) {
   JOptionPane.showMessageDialog(null, "Error al eliminar producto del registro", "Error", JOptionPane.ERROR_MESSAGE);
-  System.out.println("Error al eliminar producto, error: "+ex.getMessage());
+  System.out.println("Error al eliminar producto, error: " + ex.getMessage());
  }
 }
 
@@ -427,18 +431,10 @@ public void searchInventory() {
   tbl_products.setModel(defaultTableModel);
   tbl_products.getColumnModel().getColumn(0).setMinWidth(0);
   tbl_products.getColumnModel().getColumn(0).setMaxWidth(0);
-  
-  int rowCount = tbl_products.getRowCount();
-   if(rowCount > 0) {
-    String lastId = tbl_products.getValueAt(rowCount - 1, 0).toString();
-    int newId = Integer.parseInt(lastId) + 1;
-    txtProductId.setText(String.valueOf(newId));
-   } else {
-    txtProductId.setText("");
-   }
-  
  } catch(SQLException ex) {
   System.out.println("Error al mostrar datos de empleado, error: "+ex.getMessage());
+ } finally {
+  ConexionBD.closeResources(null, statement, resultSet);
  }
 }
 
@@ -493,6 +489,8 @@ public void showSales() {
   tbl_sales.getColumnModel().getColumn(0).setMaxWidth(0);
  } catch(SQLException ex) {
   System.out.println("Error al mostrar datos de ventas, error: "+ex.getMessage());
+ } finally {
+  ConexionBD.closeResources(null, statement, resultSet);
  }
 }
 
@@ -514,17 +512,21 @@ public Sales setSales() {
 private void deleteSale() {
  try {
   int selectedRow = tbl_sales.getSelectedRow();
-  String deleteEmployee = "delete from ventas where idVenta = "+tbl_sales.getValueAt(selectedRow, 0);
-  statement = connection.createStatement();
+  int saleId = (int) tbl_sales.getValueAt(selectedRow, 0);
+  String deleteSale = "delete from productos where codigoProducto = ?";
   
-  int delete = statement.executeUpdate(deleteEmployee);
-  
-  if(delete >= 0) {
-   JOptionPane.showMessageDialog(null, "Venta eliminada del registro", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+  try (PreparedStatement preparedStatement = connection.prepareStatement(deleteSale)) {
+   preparedStatement.setInt(1, saleId);
+   int delete = preparedStatement.executeUpdate();
+   
+   if(delete >= 0) {
+    JOptionPane.showMessageDialog(null, "Venta eliminada del registro", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+   }
   }
- } catch(SQLException ex) {
+  ConexionBD.closeResources(connection, null, null);
+ } catch (SQLException ex) {
   JOptionPane.showMessageDialog(null, "Error al eliminar venta del registro", "Error", JOptionPane.ERROR_MESSAGE);
-  System.out.println("Error al eliminar venta, error: "+ex.getMessage());
+  System.out.println("Error al eliminar venta, error: " + ex.getMessage());
  }
 }
 
@@ -568,18 +570,10 @@ public void searchSales() {
   tbl_sales.setModel(defaultTableModel);
   tbl_sales.getColumnModel().getColumn(0).setMinWidth(0);
   tbl_sales.getColumnModel().getColumn(0).setMaxWidth(0);
-  
-  int rowCount = tbl_sales.getRowCount();
-   if(rowCount > 0) {
-    String lastId = tbl_sales.getValueAt(rowCount - 1, 0).toString();
-    int newId = Integer.parseInt(lastId) + 1;
-    txtSalesId.setText(String.valueOf(newId));
-   } else {
-    txtSalesId.setText("");
-   }
-  
  } catch(SQLException ex) {
   System.out.println("Error al mostrar datos de ventas, error: "+ex.getMessage());
+ } finally {
+  ConexionBD.closeResources(null, statement, resultSet);
  }
 }
 

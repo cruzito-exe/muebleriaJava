@@ -10,11 +10,14 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
- Classes.Employees employees;
- 
  Connection connection;
  PreparedStatement preparedStatement;
  ResultSet resultSet;
+ 
+ String role = null;
+ 
+ Employees employees;
+ Menu menu;
  
  public Login() {
   initComponents();
@@ -169,69 +172,89 @@ public class Login extends javax.swing.JFrame {
 
  public Employees login(String user, String dui) {
   String login = "select * from empleados where usuario = ? and DUI = ?";
-     
+
   try {
-   Menu menu = new Menu();
+   menu = new Menu();
    connection = ConexionBD.conexionBD();
    preparedStatement = connection.prepareStatement(login);
    preparedStatement.setString(1, user);
    preparedStatement.setString(2, dui);
    resultSet = preparedStatement.executeQuery();
-         
-   while(resultSet.next()) {
+
+   if(resultSet.next()) {
     employees.setEmployeeId(resultSet.getInt("idEmpleado"));
     employees.setUser(resultSet.getString("usuario"));
     employees.setUserType(resultSet.getInt("TipoUsuario"));
     
-    String role = null;
-    
     if(employees.getUserType() == 2) {
-     role = "Rol: Administrador";
-     menu.setImageLabel(menu.lbl_logo, "/Icons/admin.png");
-     menu.setImageLabel(menu.lbl_menu, "/Screenshots/1.png");
-     menu.setImageLabel(menu.lbl_clients, "/Screenshots/2.png");
-     menu.setImageLabel(menu.lbl_employees, "/Screenshots/3.png");
-     menu.setImageLabel(menu.lbl_inventory, "/Screenshots/4.png");
-     menu.setImageLabel(menu.lbl_sales, "/Screenshots/5.png");
+     setAdminInterface();
     } else {
-     role = "Rol: Empleado";
-     menu.setImageLabel(menu.lbl_logo, "/Icons/user.png");
-     menu.setImageLabel(menu.lbl_menu, "/Screenshots/6.png");
-     menu.setImageLabel(menu.lbl_clients, "/Screenshots/7.png");
-     menu.setImageLabel(menu.lbl_employees, "/Screenshots/7.png");
-     menu.pnl_employeesData.setText("You don't have permissions to see this information");
-     menu.setImageLabel(menu.lbl_inventory, "/Screenshots/8.png");
-     menu.setImageLabel(menu.lbl_sales, "/Screenshots/9.png");
-     menu.btn_empleados.setEnabled(false);
+     setUserInterface();
     }
     
-    JOptionPane.showMessageDialog(null, "Bienvenido/a "+txtUsername.getText());
-    this.setVisible(false);
+    JOptionPane.showMessageDialog(null, "Bienvenido/a " + user);
     menu.setVisible(true);
-    menu.lbl_username.setText(txtUsername.getText());
+    dispose();
+    
+    menu.lbl_username.setText(user);
     menu.lbl_role.setText(role);
+    
+    return employees;
+   } else {
+    JOptionPane.showMessageDialog(null, "Credenciales inválidas. Por favor, intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
    }
   } catch(ClassNotFoundException | SQLException ex) {
-   System.out.println("Error al iniciar sesión, error: "+ex.getMessage());
+   JOptionPane.showMessageDialog(null, "Ha ocurrido un error al iniciar sesión, error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+   System.out.println("Error al iniciar sesión, error: " + ex.getMessage());
+  } finally {
+   ConexionBD.closeResources(connection, preparedStatement, resultSet);
   }
-     
-  return employees;
+
+  return null;
+}
+ 
+ private void setAdminInterface() {
+  role = "Rol: Administrador";
+  menu.setImageLabel(menu.lbl_logo, "/Icons/admin.png");
+  menu.setImageLabel(menu.lbl_menu, "/Screenshots/1.png");
+  menu.setImageLabel(menu.lbl_clients, "/Screenshots/2.png");
+  menu.setImageLabel(menu.lbl_employees, "/Screenshots/3.png");
+  menu.setImageLabel(menu.lbl_inventory, "/Screenshots/4.png");
+  menu.setImageLabel(menu.lbl_sales, "/Screenshots/5.png");
+ }
+ 
+ private void setUserInterface() {
+  role = "Rol: Empleado";
+  menu.setImageLabel(menu.lbl_logo, "/Icons/user.png");
+  menu.setImageLabel(menu.lbl_menu, "/Screenshots/6.png");
+  menu.setImageLabel(menu.lbl_clients, "/Screenshots/7.png");
+  menu.setImageLabel(menu.lbl_employees, "/Screenshots/7.png");
+  menu.pnl_employeesData.setText("You don't have permissions to see this information");
+  menu.setImageLabel(menu.lbl_inventory, "/Screenshots/8.png");
+  menu.setImageLabel(menu.lbl_sales, "/Screenshots/9.png");
+  menu.btn_empleados.setEnabled(false);
  }
     
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-     if(!txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
-      login(txtUsername.getText(), txtPassword.getText());
+     String username = txtUsername.getText();
+     String password = txtPassword.getText();
+
+     if(username.isEmpty() || password.isEmpty()) {
+      JOptionPane.showMessageDialog(null, "Por favor, ingrese el usuario y la contraseña.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
      } else {
-      JOptionPane.showMessageDialog(null, "Usuario o contraseña vacíos", "Error al iniciar sesión", JOptionPane.WARNING_MESSAGE);
+      login(username, password);
      }
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
      if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-      if(!txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
-       login(txtUsername.getText(), txtPassword.getText());
+      String username = txtUsername.getText();
+      String password = txtPassword.getText();
+      
+      if(username.isEmpty() || password.isEmpty()) {
+       JOptionPane.showMessageDialog(null, "Por favor, ingrese el usuario y la contraseña.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
       } else {
-       JOptionPane.showMessageDialog(null, "Usuario o contraseña vacíos", "Error al iniciar sesión", JOptionPane.WARNING_MESSAGE);
+       login(username, password);
       }
      }
     }//GEN-LAST:event_txtPasswordKeyPressed
@@ -246,10 +269,13 @@ public class Login extends javax.swing.JFrame {
 
     private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
      if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-      if(!txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
-       login(txtUsername.getText(), txtPassword.getText());
+      String username = txtUsername.getText();
+      String password = txtPassword.getText();
+      
+      if(username.isEmpty() || password.isEmpty()) {
+       JOptionPane.showMessageDialog(null, "Por favor, ingrese el usuario y la contraseña.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
       } else {
-       JOptionPane.showMessageDialog(null, "Usuario o contraseña vacíos", "Error al iniciar sesión", JOptionPane.WARNING_MESSAGE);
+       login(username, password);
       }
      }
     }//GEN-LAST:event_txtUsernameKeyPressed

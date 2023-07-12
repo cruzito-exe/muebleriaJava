@@ -21,22 +21,55 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class ConexionBD {
+ static Connection connection;
  static Statement statement;
  static ResultSet resultset;
  static PreparedStatement preparedStatement;
- static Connection connection = null;
  
  public static Connection conexionBD() {
   try {
    Class.forName("com.mysql.jdbc.Driver");
-   connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/systemTest", "root", "");
+   String server = "jdbc:mysql://127.0.0.1:3306/systemTest";
+   String user = "root";
+   String password = null;
+   
+   connection = DriverManager.getConnection(server, user, password);
    statement = connection.createStatement();
   } catch (ClassNotFoundException | SQLException ex) {
    System.out.println("Error al conectar con la base de datos, error: "+ex.getMessage());
+  } finally {
+   
   }
      
   return connection;
  }
+ 
+ public static void closeResources(Connection connection, Statement statement, ResultSet resultSet) {
+  if(resultSet != null) {
+   try {
+    resultSet.close();
+   } catch (SQLException ex) {
+    System.out.println("Error al cerrar el resultSet, error: "+ex.getMessage());
+   }
+  }
+  
+  if(statement != null) {
+   try {
+    statement.close();
+   } catch (SQLException ex) {
+    System.out.println("Error al cerrar el statement, error: "+ex.getMessage());
+   }
+  }
+  
+  if(connection != null) {
+   try {
+    connection.close();
+   } catch (SQLException ex) {
+    System.out.println("Error al cerrar la conexión, error: "+ex.getMessage());
+   }
+  }
+ }
+
  
  /* CRUD de clientes */
 
@@ -52,6 +85,8 @@ public class ConexionBD {
    JOptionPane.showMessageDialog(null, "Cliente registrado exitosamente", "Cliente registrado", JOptionPane.INFORMATION_MESSAGE);
   } catch(SQLException ex) {
    JOptionPane.showMessageDialog(null, "Error al registrar cliente", "Error", JOptionPane.ERROR_MESSAGE);
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
  
@@ -69,6 +104,8 @@ public class ConexionBD {
    JOptionPane.showMessageDialog(null, "Datos de cliente actualizados exitosamente", "Datos actualizados", JOptionPane.INFORMATION_MESSAGE);
   } catch(SQLException ex) {
    JOptionPane.showMessageDialog(null, "Error al actualizar registro de cliente", "Error", JOptionPane.ERROR_MESSAGE);
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
  
@@ -87,6 +124,8 @@ public class ConexionBD {
   } catch(JRException ex) {
    JOptionPane.showMessageDialog(null, "Error al cargar reporte de clientes", "Error", JOptionPane.ERROR_MESSAGE);
    System.out.println("Error al cargar reporte de clientes, error: "+ex.getMessage());
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
  
@@ -106,6 +145,8 @@ public class ConexionBD {
    JOptionPane.showMessageDialog(null, "Empleado registrado exitosamente", "Empleado registrado", JOptionPane.INFORMATION_MESSAGE);
   } catch(SQLException ex) {
    JOptionPane.showMessageDialog(null, "Error al registrar empleado", "Error", JOptionPane.ERROR_MESSAGE);
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
  
@@ -125,6 +166,8 @@ public class ConexionBD {
    JOptionPane.showMessageDialog(null, "Datos de empleado actualizados exitosamente", "Datos actualizados", JOptionPane.INFORMATION_MESSAGE);
   } catch(SQLException ex) {
    JOptionPane.showMessageDialog(null, "Error al actualizar registro de empleado", "Error", JOptionPane.ERROR_MESSAGE);
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
  
@@ -143,6 +186,8 @@ public class ConexionBD {
   } catch(JRException ex) {
    JOptionPane.showMessageDialog(null, "Error al cargar reporte de empleados", "Error", JOptionPane.ERROR_MESSAGE);
    System.out.println("Error al cargar reporte de empleados, error: "+ex.getMessage());
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
  
@@ -163,14 +208,16 @@ public class ConexionBD {
    JOptionPane.showMessageDialog(null, "Producto registrado exitosamente", "Producto registrado", JOptionPane.INFORMATION_MESSAGE);
   } catch(SQLException ex) {
    JOptionPane.showMessageDialog(null, "Error al registrar producto", "Error", JOptionPane.ERROR_MESSAGE);
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
 
  public static void updateInventory(Inventory inventory) {
-  String updateEmployee = "update productos set codigoProducto = ?, nombreProducto = ?, precioProducto = ?, nombreProveedor = ?, materialProducto = ? where idProducto = ?";
+  String updateInventory = "update productos set codigoProducto = ?, nombreProducto = ?, precioProducto = ?, nombreProveedor = ?, materialProducto = ? where idProducto = ?";
   
   try {
-   preparedStatement = connection.prepareStatement(updateEmployee);
+   preparedStatement = connection.prepareStatement(updateInventory);
    preparedStatement.setString(1, inventory.getProductCode());
    preparedStatement.setString(2, inventory.getProductName());
    preparedStatement.setDouble(3, inventory.getProductPrice());
@@ -183,7 +230,8 @@ public class ConexionBD {
    JOptionPane.showMessageDialog(null, "Datos de producto actualizados exitosamente", "Datos actualizados", JOptionPane.INFORMATION_MESSAGE);
   } catch(SQLException ex) {
    JOptionPane.showMessageDialog(null, "Error al actualizar registro de producto", "Error", JOptionPane.ERROR_MESSAGE);
-   //System.out.println("Error al actualizar datos de producto, error: "+ex.getMessage());
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
  
@@ -202,6 +250,8 @@ public class ConexionBD {
   } catch(JRException ex) {
    JOptionPane.showMessageDialog(null, "Error al cargar reporte de inventario", "Error", JOptionPane.ERROR_MESSAGE);
    System.out.println("Error al cargar reporte de empleados, error: "+ex.getMessage());
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
  
@@ -228,7 +278,9 @@ public class ConexionBD {
    JOptionPane.showMessageDialog(null, "Venta registrada exitosamente", "Producto registrado", JOptionPane.INFORMATION_MESSAGE);
   } catch(SQLException ex) {
    JOptionPane.showMessageDialog(null, "Error al registrar venta", "Error", JOptionPane.ERROR_MESSAGE);
-      System.out.println("Error al registrar venta, error: "+ex.getMessage());
+   System.out.println("Error al registrar venta, error: "+ex.getMessage());
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
  
@@ -247,6 +299,8 @@ public class ConexionBD {
   } catch(JRException ex) {
    JOptionPane.showMessageDialog(null, "Error al cargar reporte de ventas", "Error", JOptionPane.ERROR_MESSAGE);
    System.out.println("Error al cargar reporte de empleados, error: "+ex.getMessage());
+  } finally {
+   closeResources(connection, preparedStatement, null);
   }
  }
 }
