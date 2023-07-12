@@ -1,6 +1,8 @@
-# Sistema de Ventas para Mueblería "El Serrucho"
+# 🛍️ Sistema de Ventas
 
-Este proyecto es un sistema de ventas básico desarrollado en Java utilizando Netbeans 12.0 como entorno de desarrollo integrado (IDE) y MySQL como sistema de gestión de bases de datos (SGBD) utilizando XAMPP.
+![photo7](https://github.com/cruzito-exe/muebleriaJava/assets/54298536/4f80d829-334b-4986-8eaa-9dc7e23f2d6e)
+
+Este proyecto es un sistema de ventas básico desarrollado en Java Maven utilizando Netbeans 12.0 como entorno de desarrollo integrado (IDE) y MySQL como sistema de gestión de bases de datos (SGBD) utilizando XAMPP.
 
 ## Requisitos previos
 - Netbeans 12.0 o superior instalado en el equipo.
@@ -25,7 +27,6 @@ public class ConexionBD {
   try {
    Class.forName("com.mysql.jdbc.Driver");
    connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/systemTest", user, password);
-   statement = connection.createStatement();
   } catch (ClassNotFoundException | SQLException ex) {
    System.out.println("Error al conectar con la base de datos, error: "+ex.getMessage());
   }
@@ -49,7 +50,7 @@ El proyecto sigue una estructura básica de paquetes:
 - `Database`: Contiene el script SQL de la base de datos.
 - `Classes`: Contiene las clases que representan los objetos del dominio del negocio, como `Inventory` y `Sales`.
 - `Interface`: Contiene las clases que implementan la interfaz de usuario del sistema.
-- `Reports`: Contiene las clases que implementan la interfaz de usuario del sistema.
+- `Reports`: Contiene los manejadores de reportería que se implementan en el sistema.
 - `Icons`: Contiene las imágenes/iconos que se implementan tanto en el menú prinicipal como en `buscar` y `reporte` de cada formulario.
 - `Screenshots`: Contiene las capturas de pantalla mostradas en el Help Center.
 
