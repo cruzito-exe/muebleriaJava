@@ -37,8 +37,6 @@ public class ConexionBD {
    statement = connection.createStatement();
   } catch (ClassNotFoundException | SQLException ex) {
    System.out.println("Error al conectar con la base de datos, error: "+ex.getMessage());
-  } finally {
-   closeResources(connection, statement, null);
   }
      
   return connection;
